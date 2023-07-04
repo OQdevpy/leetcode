@@ -1,6 +1,9 @@
 url = "https://leetcode.com/problems/excel-sheet-column-title/description/"
-columnNumber = int(input("Enter column number: "))
+ans = []
+while(n > 0):
+    n -= 1
+    curr = n % 26
+    n = int(n / 26)
+    ans.append(chr(curr + ord('A')))
 
-characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-result = characters[columnNumber%26-1] if columnNumber<26 else characters[columnNumber//26-1]+characters[columnNumber%26-1]
-print(result)
+print( ''.join(ans[::-1]))
