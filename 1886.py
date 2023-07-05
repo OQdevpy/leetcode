@@ -15,6 +15,7 @@ class Solution:
         return matrix
     
 if __name__ == "__main__":
+    
     a = Solution()
     mat = [[0,1],[1,0]]
     target = [[1,0],[0,1]]
