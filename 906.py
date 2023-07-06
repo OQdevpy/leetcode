@@ -20,3 +20,4 @@ class Solution:
             if v >= left and str(v) == str(v)[::-1]:
                 ans += 1
         return ans
+    
