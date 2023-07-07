@@ -1,11 +1,21 @@
 url = "https://leetcode.com/problems/regular-expression-matching/"
 
 class Solution:
-    def isMatch(self, s, p):
-        if not p:
-            return not s
-        first_match = bool(s) and p[0] in {s[0], "."}
-        if len(p)>=2 and p[1] == "*":
-            return self.isMatch(s, p[2:]) or (first_match and self.isMatch(s[1:], p))
-        else:
-            return first_match and self.isMatch(s[1:], p[1:])
+    def isMatch(self, s: str, p: str) -> bool:
+        m, n = len(s), len(p)
+        dp = [[False] * (n+1) for _ in range(m+1)]
+        dp[0][0] = True
+        for j in range(1, n+1):
+            if p[j-1] == '*':
+                dp[0][j] = dp[0][j-2]
+            else:
+                dp[0][j] = j > 1 and p[j-2] == '*' and dp[0][j-2]
+        for i in range(1, m+1):
+            for j in range(1, n+1):
+                if p[j-1] == s[i-1] or p[j-1] == '.':
+                    dp[i][j] = dp[i-1][j-1]
+                elif p[j-1] == '*':
+                    dp[i][j] = dp[i][j-2] or (p[j-2] == s[i-1] or p[j-2] == '.') and dp[i-1][j]
+                else:
+                    dp[i][j] = False
+        return dp[m][n]
